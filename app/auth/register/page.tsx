@@ -1,4 +1,5 @@
 "use client";
+import React from "react"
 import { Shield, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -179,7 +180,7 @@ export default function Register() {
               <div className="mt-1.5 flex flex-col gap-1">
                 <div className="h-1 w-full rounded-full bg-white/10">
                   <div
-                    className={h-1 rounded-full transition-all duration-300 ${strength.color}}
+                    className={`h-1 rounded-full transition-all duration-300 ${strength.color}`}
                     style={{ width: strength.width }}
                   />
                 </div>
@@ -222,7 +223,7 @@ export default function Register() {
             </div>
             {/* Match indicator */}
             {confirm.length > 0 && (
-              <span className={text-xs ${confirm === password ? "text-green-500" : "text-red-500"}}>
+              <span className={`text-xs ${confirm === password ? "text-green-500" : "text-red-500"}`}>
                 {confirm === password ? "Passwords match" : "Passwords do not match"}
               </span>
             )}
