@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
@@ -37,4 +37,36 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; */
+
+import { Shield } from "lucide-react";
+import Link from "next/link";
+
+export default function Navbar() {
+  return (
+    <nav className="fixed top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-2 text-white">
+          <Shield size={22} className="text-red-500" />
+          <span className="text-sm font-bold tracking-widest uppercase">
+            SocEng
+          </span>
+        </Link>
+        <div className="flex items-center gap-6 text-sm text-gray-400">
+          <Link href="#" className="transition-colors hover:text-white">
+            Learn
+          </Link>
+          <Link href="#" className="transition-colors hover:text-white">
+            Profile
+          </Link>
+          <Link href="#" className="transition-colors hover:text-white">
+            Competetion
+          </Link>
+          <Link href="#" className="transition-colors hover:text-white">
+            History
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+}
