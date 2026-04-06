@@ -1,4 +1,4 @@
-"use client"
+/*"use client"
 import {useState, useRef, useEffect} from "react"
 const Recs: React.FC = () => {
     const recs = [
@@ -78,10 +78,10 @@ const Recs: React.FC = () => {
               Recommendations for the day!
             </h2>
 
-          </div>
+          </div> */
 
-          {/* Carousel */}
-          <div className="relative w-full px-0 md:px-4 lg:px-8">
+/*          {/* Carousel } 
+/*          <div className="relative w-full px-0 md:px-4 lg:px-8">
             <div className="overflow-hidden">
               <div 
                 ref={carouselRef}
@@ -96,17 +96,17 @@ const Recs: React.FC = () => {
 overflow-hidden border-2 border-[#00F5FF]/40 hover:border-[#00F5FF]
 flex flex-col justify-end p-6 text-white">
 
-                {/* 1️⃣ Background image */}
-                <div 
+                {/* 1️⃣ Background image } 
+/*                <div 
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                     style={{ backgroundImage: `url(${recs.bg})` }}
                 />
 
-                {/* 2️⃣ Dark overlay */}
-                <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+                {/* 2️⃣ Dark overlay }
+/*                <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
 
-                {/* 3️⃣ Content (above background) */}
-                <div className="relative z-10 flex flex-col gap-2">
+                {/* 3️⃣ Content (above background) } 
+/*                <div className="relative z-10 flex flex-col gap-2">
                     <h3 className="text-xl font-semibold drop-shadow-[0_0_8px_#00F5FF]">
                     {recs.title}
                     </h3>
@@ -158,12 +158,122 @@ flex flex-col justify-end p-6 text-white">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-          </div>*/}
-        </div>
+          </div>}  */
+/*        </div>
       </div>
         </section>
 
     );
 }
 
-export default Recs;
+export default Recs; */
+
+"use client";
+
+import { Mail, Users, Gift, Phone, UserCheck, Wifi } from "lucide-react";
+import { useState } from "react";
+
+const vectors = [
+  {
+    icon: Mail,
+    title: "Phishing",
+    description:
+      "Fraudulent emails designed to steal sensitive information or credentials.",
+  },
+  {
+    icon: Users,
+    title: "Pretexting",
+    description:
+      "Creating a fabricated scenario to obtain information from targets.",
+  },
+  {
+    icon: Gift,
+    title: "Baiting",
+    description: "Offering something enticing to trick victims into a trap.",
+  },
+  {
+    icon: Phone,
+    title: "Vishing",
+    description: "Voice phishing attacks conducted over phone calls.",
+  },
+  {
+    icon: UserCheck,
+    title: "Tailgating",
+    description:
+      "Gaining physical access by following authorized personnel.",
+  },
+  {
+    icon: Wifi,
+    title: "Evil Twin",
+    description: "Fake Wi-Fi networks designed to intercept data.",
+  },
+];
+
+export default function Recs() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  return (
+    <section className="relative bg-black px-6 py-20">
+      {/* Section Header */}
+      <div className="mb-14 text-center">
+        <h2 className="text-5xl font-black tracking-tight md:text-6xl">
+          <span className="text-white">ATTACK </span>
+          <span className="text-red-500">VECTORS</span>
+        </h2>
+        <p className="mt-4 text-gray-400 text-lg">
+          Common social engineering tactics used to exploit human psychology
+        </p>
+      </div>
+
+      {/* Cards Grid */}
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {vectors.map((item, index) => {
+          const Icon = item.icon;
+          const isHovered = hovered === index;
+
+          return (
+            <div
+              key={item.title}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              className={`relative overflow-hidden rounded-2xl border p-7 transition-all duration-300 cursor-default
+                ${
+                  isHovered
+                    ? "border-red-700/60 bg-[#0d1a2d] shadow-[0_0_30px_rgba(220,38,38,0.15)]"
+                    : "border-white/5 bg-[#161616] hover:border-white/10"
+                }`}
+            >
+              {/* Background glow blob on hover */}
+              {isHovered && (
+                <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-red-900/30 blur-3xl" />
+              )}
+
+              {/* Icon box */}
+              <div
+                className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl transition-colors duration-300
+                  ${isHovered ? "bg-[#1e2a3a]" : "bg-[#1f1f1f]"}`}
+              >
+                <Icon
+                  size={26}
+                  className={`transition-colors duration-300 ${
+                    isHovered ? "text-red-400" : "text-red-500"
+                  }`}
+                />
+              </div>
+
+              {/* Title */}
+              <h3 className="mb-3 text-xl font-bold text-white">
+                {item.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-sm leading-relaxed text-gray-400">
+                {item.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
