@@ -65,6 +65,9 @@ export default function Navbar() {
           <Link href="#" className="transition-colors hover:text-white">
             History
           </Link>
+          <Link href="#" className="transition-colors hover:text-white">
+            Attacks
+          </Link>
         </div>
       </div>
     </nav>
