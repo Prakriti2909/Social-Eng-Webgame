@@ -3,8 +3,13 @@ import React from "react"
 import { Shield, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
+
 
 export default function Register() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [username, setUsername] = useState("");
@@ -29,35 +34,42 @@ export default function Register() {
   const strength = getStrength(password);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    if (password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-
-    setLoading(true);
-
-    // TODO: replace with your actual API call
-    // const res = await fetch("/api/auth/register", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ username, email, password }),
-    // });
-    // const data = await res.json();
-    // if (!res.ok) { setError(data.error); setLoading(false); return; }
-    // router.push("/dashboard");
-
-    setTimeout(() => {
-      setLoading(false);
-      setError("API not connected yet — placeholder");
-    }, 1000);
+  if (password !== confirm) {
+    setError("Passwords do not match.");
+    return;
   }
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(userCredential.user, { displayName: username });
+    router.push("/dashboard"); // change to wherever you want after register
+  } catch (err: any) {
+    switch (err.code) {
+      case "auth/email-already-in-use":
+        setError("An account with this email already exists.");
+        break;
+      case "auth/invalid-email":
+        setError("Invalid email address.");
+        break;
+      case "auth/weak-password":
+        setError("Password is too weak.");
+        break;
+      default:
+        setError("Something went wrong. Please try again.");
+    }
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black px-4 py-12">

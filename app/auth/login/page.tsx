@@ -2,6 +2,7 @@
 import { Shield, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { auth } from "@/lib/firebase";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
