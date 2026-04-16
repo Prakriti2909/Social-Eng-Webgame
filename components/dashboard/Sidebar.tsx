@@ -20,6 +20,10 @@ const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/training", label: "Training", icon: BookOpen },
   { href: "/dashboard/progress", label: "My Progress", icon: TrendingUp },
+
+  { href: "/report", label: "Report Email", icon: Shield },
+  { href: "/feedback", label: "Check Feedback", icon: BookOpen },
+  { href: "/community", label: "Community Feed", icon: TrendingUp },
 ];
 
 export default function Sidebar() {
@@ -64,6 +68,16 @@ export default function Sidebar() {
           })}
         </nav>
       </div>
+
+      {user?.uid === "Aa3S9XFAFSOoRDBRPUpOIbwbbdh2" && (
+  <Link
+    href="/admin"
+    className="mt-3 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-400 hover:bg-red-600/10"
+  >
+    <Shield size={16} />
+    Admin Dashboard
+  </Link>
+)}
 
       {/* User + logout */}
       <div className="border-t border-white/10 pt-4">
